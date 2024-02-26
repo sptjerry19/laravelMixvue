@@ -14,8 +14,8 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::create([
-            'name' => 'màn hình máy tinihs LG',
-            'image' => asset('images/image1.jpg'),
+            'name' => 'màn hình máy tính GIGABYTE',
+            'image' => asset('images/image2.jpg'),
             'description' => 'đây là màn hình có tần số 100hz tốc độ phản hồi 1ms, là màn hình có độ sáng tốt cho người dùng',
             'star' => 5,
             'Evaluate' => 450,
