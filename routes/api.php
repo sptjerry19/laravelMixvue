@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\productController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/products', [productController::class, 'index']);
+Route::group(['prefix' => '/products'], function () {
+    Route::get('/', [productController::class, 'index']);
+    Route::post('/', [productController::class, 'store']);
+});
+
+Route::group(['prefix' => '/images'], function () {
+    Route::get('/', [ImageController::class, 'index']);
+    Route::post('/', [ImageController::class, 'store']);
+});
