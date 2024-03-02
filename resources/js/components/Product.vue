@@ -476,7 +476,9 @@
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import NavBar from "./NavBar.vue";
+</script>
 
 <script>
 import axios from "axios";

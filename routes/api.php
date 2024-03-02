@@ -24,4 +24,5 @@ Route::group(['prefix' => '/products'], function () {
 Route::group(['prefix' => '/images'], function () {
     Route::get('/', [ImageController::class, 'index']);
     Route::post('/', [ImageController::class, 'store']);
+    Route::delete('/{id}', [ImageController::class, 'destroy']);
 });

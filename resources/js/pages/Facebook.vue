@@ -40,7 +40,10 @@
                             Video Siaran Langsung
                         </span>
                     </div>
-                    <div class="flex h-full items-center">
+                    <div
+                        @click="isCloseModal = false"
+                        class="flex h-full items-center cursor-pointer"
+                    >
                         <svg
                             class="h-12 text-green-500 stroke-current"
                             xmlns="http://www.w3.org/2000/svg"
@@ -93,10 +96,33 @@
 
             <!-- image -->
             <ImageFb />
+
+            <!-- video -->
+            <VideoFb />
         </div>
     </div>
+
+    <ModalCreateFb v-if="isCloseModal === false" @close-modal="closeModal" />
 </template>
 
 <script setup>
 import ImageFb from "../components/ImageFb.vue";
+import VideoFb from "../components/VideoFb.vue";
+import ModalCreateFb from "../components/ModalCreateFb.vue";
+</script>
+
+<script>
+export default {
+    data() {
+        return {
+            isCloseModal: true,
+        };
+    },
+    methods: {
+        createImage() {},
+        closeModal(data) {
+            this.isCloseModal = data.isCloseModal;
+        },
+    },
+};
 </script>

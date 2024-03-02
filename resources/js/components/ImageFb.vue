@@ -4,7 +4,7 @@
         :key="image.id"
         class="bg-white w-full rounded-md shadow-md h-auto py-3 px-3 my-5"
     >
-        <div class="w-full h-16 flex items-center justify-between">
+        <div class="w-full h-16 flex items-center justify-between relative">
             <div class="flex">
                 <img
                     class="rounded-full object-cover w-10 h-10 mr-3"
@@ -17,7 +17,8 @@
                 </div>
             </div>
             <svg
-                class="w-16"
+                @click="isClickDelete = !isClickDelete"
+                class="w-16 hover:cursor-pointer hover:stroke-black transition-all"
                 xmlns="http://www.w3.org/2000/svg"
                 width="27"
                 height="27"
@@ -32,6 +33,28 @@
                 <circle cx="19" cy="12" r="1"></circle>
                 <circle cx="5" cy="12" r="1"></circle>
             </svg>
+            <div
+                v-if="isClickDelete == true"
+                class="flex items-center justify-around absolute px-2 top-10 right-0 bg-zinc-500 rounded cursor-pointer hover:scale-125"
+                @click="deleteImage(image.id)"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5 text-red-600"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"
+                    />
+                </svg>
+
+                <p class="hover: text-red-600 pl-2">Delete</p>
+            </div>
         </div>
         <p>mencoba untuk mengclone facebook dengan Tailwind css</p>
         <div class="flex justify-center">
@@ -166,6 +189,7 @@ import VITE_SERVER from "../store";
 export default {
     data() {
         return {
+            isClickDelete: false,
             images: [],
         };
     },
@@ -178,6 +202,18 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
+    },
+    methods: {
+        deleteImage(id) {
+            axios
+                .delete(VITE_SERVER + "/images/" + id)
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
     },
 };
 </script>
