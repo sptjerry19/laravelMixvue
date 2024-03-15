@@ -99,6 +99,8 @@
 
             <!-- video -->
             <VideoFb />
+
+            <TwiterLink />
         </div>
     </div>
 
@@ -109,6 +111,7 @@
 import ImageFb from "../components/ImageFb.vue";
 import VideoFb from "../components/VideoFb.vue";
 import ModalCreateFb from "../components/ModalCreateFb.vue";
+import TwiterLink from "../linksJs/TwiterLink.vue";
 </script>
 
 <script>

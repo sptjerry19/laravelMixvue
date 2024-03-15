@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use League\Flysystem\Filesystem;
+use Intervention\Image\ImageManager;
 
 class ImageController extends Controller
 {
@@ -30,6 +33,26 @@ class ImageController extends Controller
             'image' => 'nullable|image|required_without:image_url',
         ]);
 
+        // $url = $params['image_url'];
+        // $filename = 'image.jpg';
+
+        // $ch = curl_init($url);
+
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        // $fileContent = curl_exec($ch);
+
+        // curl_close($ch);
+
+        $url = $params['image_url'];
+        $time = time();
+        $imgpath = 'D:\learn_laravel\example-app\public\storage\images\image' . $time . '.png';
+        $img = 'image' . $time . '.png';
+        // Function to write image into file
+        file_put_contents($imgpath, file_get_contents($url));
+
         if ($request->file('image')) {
             $image_path = $request->file('image')->store('images', 'public');
 
@@ -44,14 +67,14 @@ class ImageController extends Controller
         }
 
         Image::create([
-            'image_url' => $params['image_url'],
+            'image_url' => $img,
             'image' => null,
         ]);
 
         try {
             return response()->json([
                 'message' => 'create image success',
-                'data' => $params,
+                'data' => $img,
             ], 200);
         } catch (\Exception $e) {
             return response()->json([

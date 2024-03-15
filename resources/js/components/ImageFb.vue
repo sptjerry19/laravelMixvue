@@ -8,7 +8,10 @@
             <div class="flex">
                 <img
                     class="rounded-full object-cover w-10 h-10 mr-3"
-                    :src="image.image_url"
+                    :src="
+                        'http://[::1]:5173/storage/app/public/images/' +
+                        image.image_url
+                    "
                     alt=""
                 />
                 <div>
@@ -60,7 +63,10 @@
         <div class="flex justify-center">
             <img
                 class="w-full h-120 object-cover"
-                :src="image.image_url"
+                :src="
+                    'http://[::1]:5173/storage/app/public/images/' +
+                    image.image_url
+                "
                 alt=""
             />
         </div>
@@ -198,6 +204,7 @@ export default {
             .get(VITE_SERVER + "/images")
             .then((response) => {
                 this.images = response.data.data;
+                console.log(this.images);
             })
             .catch((error) => {
                 console.log(error);

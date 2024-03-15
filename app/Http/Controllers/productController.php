@@ -28,11 +28,16 @@ class productController extends Controller
     {
         $params = $request->validated();
 
-        // $image_path = $request->file('image')->store('images', 'public');
+        $url = $params['image'];
+        $time = time();
+        $imgpath = 'D:\learn_laravel\example-app\public\storage\images\image' . $time . '.png';
+        $img = 'http://[::1]:5173/storage/app/public/images/image' . $time . '.png';
+        // Function to write image into file
+        file_put_contents($imgpath, file_get_contents($url));
 
         $data = [
             'name' => $params['name'],
-            'image' => $params['image'],
+            'image' => $img,
             'description' => $params['description'],
             'star' => $params['star'] ?? 5,
             'Evaluate' => $params['Evaluate'],
@@ -79,6 +84,12 @@ class productController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $delete = $product->delete();
+
+        return response()->json([
+            'message' => "delete success",
+            'data' => $product,
+        ], 200);
     }
 }
